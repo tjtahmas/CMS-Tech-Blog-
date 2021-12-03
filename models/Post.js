@@ -1,7 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require('../config/connection')
 
-class Post extends Model{ }
+class Post extends Model {
+
+}
 
 Post.init(
     {
@@ -31,13 +33,14 @@ Post.init(
                 key: 'id',
             },
         },
-        sequelize,
-        //I think maybe I just make timestamps true. That makes sense to me. 
-        timestamps: true,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'post'
-    }
+    }, {
+    sequelize,
+    //I think maybe I just make timestamps true. That makes sense to me. 
+    timestamps: true,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'post'
+}
 );
 
 module.exports = Post;
