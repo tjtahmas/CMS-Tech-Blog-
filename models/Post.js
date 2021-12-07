@@ -21,11 +21,6 @@ Post.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        // date_created: {
-        //     //Not entirely sure about how to save the time here
-        //     type: DataTypes.TIME,
-        //     allowNull: false,
-        // },
         user_id: {
             type: DataTypes.INTEGER,
             references: {
