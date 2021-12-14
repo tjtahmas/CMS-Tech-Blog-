@@ -6,7 +6,7 @@ const { Post, Comment, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 
-// GET all galleries for homepage
+// GET all POSTS for homepage
 router.get('/', async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
       post.get({ plain: true })
     );
 
-    console.log(posts)
     // Send over the 'loggedIn' session variable to the 'homepage' template
     res.render('homepage', {
       posts,
@@ -53,9 +52,10 @@ router.get('/post/:id', withAuth, async (req, res) => {
     });
 
     const post = dbPostData.get({ plain: true });
+    const ownership = (post.user.id == req.session.user_id)
 
     // Send over the 'loggedIn' session variable to the 'post' template
-    res.render('post', { post, loggedIn: req.session.loggedIn });
+    res.render('post', { post, loggedIn: req.session.loggedIn, ownership });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -64,20 +64,6 @@ router.get('/post/:id', withAuth, async (req, res) => {
 
 router.get('/new-post/', withAuth, (req,res) => {
   res.render('new-post', { loggedIn: req.session.loggedIn });
-});
-
-// GET one painting
-router.get('/painting/:id', withAuth, async (req, res) => {
-  try {
-    const dbPaintingData = await Painting.findByPk(req.params.id);
-
-    const painting = dbPaintingData.get({ plain: true });
-    // Send over the 'loggedIn' session variable to the 'homepage' template
-    res.render('painting', { painting, loggedIn: req.session.loggedIn });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
 });
 
 // Login route

@@ -1,5 +1,4 @@
 console.log('THE SCRIPT IS LINKED!')
-console.log(document)
 
 const postSubmit = async (event) => {
     event.preventDefault();
